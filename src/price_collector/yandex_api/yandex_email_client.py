@@ -15,7 +15,8 @@ HTML_OUTPUT_DIR = Path("html")
 
 
 class YandexEmailClient:
-    """Клиент для подключения к почтовому серверу Яндекса и извлечения HTML-содержимого.
+    """Клиент для подключения к почтовому серверу Яндекса и извлечения
+    HTML-содержимого.
 
     Для настройки клиента необходимо задать следующие переменные окружения:
     - {MAIL_NAME}_IMAP_SERVER: Адрес IMAP-сервера (например, imap.yandex.ru)
@@ -76,7 +77,9 @@ class YandexEmailClient:
             self.mail.login(self.email, self.password)
             logger.info("Успешное подключение к почтовому серверу")
         except (imaplib.IMAP4.error, OSError) as e:
-            error_message = (f"Ошибка при подключении к почтовому серверу: {e}")
+            error_message = (
+                f"Ошибка при подключении к почтовому серверу: {e}"
+                )
             logger.exception(error_message)
             raise ConnectionError(error_message) from e
 
@@ -87,11 +90,16 @@ class YandexEmailClient:
                 self.mail.logout()
                 logger.info("Успешное отключение от почтового сервера")
             except imaplib.IMAP4.error as e:
-                logger.exception("Ошибка при отключении от почтового сервера: %s", e)
+                logger.exception(
+                    "Ошибка при отключении от почтового сервера: %s",
+                    e,
+                    )
             finally:
                 self.mail = None
 
-    def retrieve_unread_emails_from_folder(self, folder_name: str) -> list[Path]:
+    def retrieve_unread_emails_from_folder(
+            self,
+            folder_name: str) -> list[Path]:
         """Извлечение непрочитанных писем из указанной папки.
 
         Сохраняет HTML-содержимое в файлы и возвращает
@@ -132,7 +140,9 @@ class YandexEmailClient:
         except ConnectionError:
             raise
         except Exception as e:
-            error_message = f"Ошибка при чтении писем из папки {folder_name}: {e}"
+            error_message = (
+                f"Ошибка при чтении писем из папки {folder_name}: {e}"
+                )
             logger.exception(error_message)
             raise RuntimeError(error_message) from e
         finally:
@@ -164,12 +174,21 @@ class YandexEmailClient:
                                     email_id,
                                 )
                                 return None
-                            html_content = payload.decode("utf-8", errors="replace")
-                            filename = (self._generate_unique_filename(email_id))
+                            html_content = payload.decode(
+                                "utf-8",
+                                errors="replace",
+                                )
+                            filename = (
+                                self._generate_unique_filename(email_id)
+                                )
                             return self._save_html_file(filename, html_content)
             return None
         except Exception as e:
-            logger.error("Ошибка при обработке письма с ID %s: %s", email_id, e)
+            logger.error(
+                "Ошибка при обработке письма с ID %s: %s",
+                email_id,
+                e,
+                )
             return None
 
     @staticmethod
