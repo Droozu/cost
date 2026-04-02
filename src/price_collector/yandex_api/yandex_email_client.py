@@ -11,7 +11,8 @@ from dotenv import load_dotenv
 load_dotenv()
 logger = logging.getLogger("YandexEmailClient")
 
-HTML_OUTPUT_DIR = Path("html")
+HTML_DIR = Path("html")
+HTML_OUTPUT_DIR = HTML_DIR / "unread"
 
 
 class YandexEmailClient:
