@@ -1,0 +1,11 @@
+import logging
+import os
+from typing import Optional
+
+def setup_logging(level: Optional[str] = "INFO") -> None:
+    lvl = (level or os.getenv("LOG_LEVEL", "INFO")).upper()
+    logging.basicConfig(
+        level=getattr(logging, lvl, logging.INFO),
+        format="%(asctime)s %(levelname)s %(name)s %(message)s",
+        filename="app.log",
+    )
