@@ -8,4 +8,5 @@ def setup_logging(level: Optional[str] = "INFO") -> None:
         level=getattr(logging, lvl, logging.INFO),
         format="%(asctime)s %(levelname)s %(name)s %(message)s",
         filename="app.log",
+        folder="logs"
     )

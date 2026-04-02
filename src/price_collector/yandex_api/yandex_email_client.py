@@ -5,9 +5,9 @@ import logging
 from dotenv import load_dotenv
 from email import message_from_bytes
 
-from log_setup import setup_logging
+from src.price_collector.cli.log_setup import setup_logging
 
-load_dotenv()  # Загружаем переменные окружения из .env файла
+load_dotenv()
 logger = logging.getLogger("YandexEmailClient")
 
 class YandexEmailClient:
@@ -86,9 +86,3 @@ class YandexEmailClient:
             logger.info(f"HTML-содержимое письма сохранено в файл: {filename}")
         except Exception as e:
             logger.info(f"Ошибка при сохранении HTML-содержимого в файл: {e}")          
-
-if __name__ == "__main__":
-    setup_logging()
-    mail_client = YandexEmailClient()
-    mail_client.set_configuration("yandex")
-    mail_client.save_email_content("receipts")
